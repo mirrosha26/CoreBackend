@@ -1,0 +1,11 @@
+bind = "unix:/home/ubuntu/veck/gunicorn.sock"
+workers = 4
+worker_class = "gevent"
+worker_connections = 1000
+timeout = 120
+max_requests = 1000
+max_requests_jitter = 100
+keepalive = 5
+accesslog = "-"
+errorlog = "-"
+capture_output = True

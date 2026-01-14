@@ -1,0 +1,267 @@
+# ==========================================
+# Python
+# ==========================================
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Translations
+*.mo
+*.pot
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath
+*.sage.py
+
+# Environments
+.env
+.env.*
+!.env.example
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype static type analyzer
+.pytype/
+
+# Cython debug symbols
+cython_debug/
+
+# ==========================================
+# Django
+# ==========================================
+
+# Logs
+*.log
+
+# Local settings (keep main settings.py in repo)
+local_settings.py
+settings_local.py
+**/settings_local.py
+
+# Database
+db.sqlite3
+db.sqlite3-journal
+*.db
+
+# Migrations
+*/migrations/
+!*/migrations/__init__.py
+
+# Static files (collected by collectstatic)
+/staticfiles/
+/static_root/
+/static_collected/
+
+# Media files (user uploads)
+/media/
+!/media/.gitkeep
+
+# Django secret key
+.secret_key
+
+# Django cache
+django_cache/
+
+# ==========================================
+# IDE & Editors
+# ==========================================
+
+# VSCode
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# Cursor
+.cursor/
+
+# ==========================================
+# OS
+# ==========================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# ==========================================
+# Frontend
+# ==========================================
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+
+# Built assets
+/assets/
+!/assets/.gitkeep
+
+# ==========================================
+# Documentation & Notes
+# ==========================================
+
+# Obsidian
+.obsidian/
+
+# Personal notes
+TODO.md
+NOTES.md
+refactoring_plan.md
+scratch.md
+
+# HTTP client files
+*.http
+*.rest
+
+# ==========================================
+# Project Specific
+# ==========================================
+
+# AWS credentials
+*.pem
+VeckAWS.pem
+
+# Examples and temporary files
+examples/
+temp/
+tmp/
+scratch/
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Test data
+test_data/
+fixtures/local/
+
+# ==========================================
+# Security & Secrets
+# ==========================================
+
+# Never commit these
+*.key
+*.cert
+*.csr
+secrets.json
+.secrets/

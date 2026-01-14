@@ -1,0 +1,1 @@
+# GraphQL app for Django integration using Strawberry 
