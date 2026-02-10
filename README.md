@@ -375,7 +375,3 @@ gunicorn -c gunicorn_config.py config.wsgi:application
 - [Документация GraphQL API](./graphql_app/README.md)
 - [Документация Signals API](./signals/README.md)
 
----
-
-Версия: 1.0.0  
-Последнее обновление: 2024
