@@ -1,68 +1,66 @@
-# GraphQL App Documentation
+# Документация GraphQL приложения
 
-## Overview
+## Обзор
 
-This GraphQL application provides a comprehensive API for the Veck platform, built with **Strawberry GraphQL** and **Django**. It offers advanced querying capabilities for signal cards, participants, categories, and user management with extensive performance optimizations and caching strategies.
+Это GraphQL приложение предоставляет комплексный API для платформы мониторинга венчурного капитала, построенный на базе **Strawberry GraphQL** и **Django**. Оно предлагает расширенные возможности запросов для карточек сигналов, участников, категорий и управления пользователями с обширными оптимизациями производительности и стратегиями кэширования.
 
-## Architecture
+## Архитектура
 
-### Core Components
+### Основные компоненты
 
 ```
 graphql_app/
-├── schema.py              # Main GraphQL schema with DjangoOptimizerExtension
-├── queries.py             # All query resolvers (2,746 lines)
-├── mutations.py           # All mutation resolvers (1,412 lines)
-├── types.py               # GraphQL type definitions (1,427 lines)
-├── performance.py         # Performance monitoring and metrics
-├── query_complexity.py    # Query complexity analysis and limits
-├── dataloaders.py         # DataLoader implementations for N+1 prevention
-├── query_caching.py       # Query-level caching strategies
-├── comprehensive_query_caching.py  # Advanced caching for complex queries
-├── enhanced_prefetching.py         # Intelligent database prefetching
-├── enhanced_bulk_loading.py        # Bulk loading optimizations
-├── optimized_signal_resolver.py    # Optimized signal field resolver
-├── optimized_user_context.py       # User context optimization
-├── regional_mappings.py             # Geographic region mappings
-├── views.py               # Django views for GraphQL endpoint
-└── urls.py                # URL routing
+├── schema.py              # Основная GraphQL схема с DjangoOptimizerExtension
+├── queries.py             # Все резолверы запросов (2,746 строк)
+├── mutations.py           # Все резолверы мутаций (1,412 строк)
+├── types.py               # Определения GraphQL типов (1,427 строк)
+├── performance.py         # Мониторинг производительности и метрики
+├── query_complexity.py    # Анализ сложности запросов и ограничения
+├── dataloaders.py         # Реализации DataLoader для предотвращения N+1 проблем
+├── query_caching.py       # Стратегии кэширования на уровне запросов
+├── comprehensive_query_caching.py  # Расширенное кэширование для сложных запросов
+├── enhanced_prefetching.py         # Интеллектуальная предзагрузка из БД
+├── enhanced_bulk_loading.py        # Оптимизации массовой загрузки
+├── optimized_signal_resolver.py    # Оптимизированный резолвер полей сигналов
+├── optimized_user_context.py       # Оптимизация пользовательского контекста
+└── urls.py                # Маршрутизация URL
 ```
 
-### Key Features
+### Ключевые возможности
 
-- **Performance Monitoring** - Real-time query performance tracking
-- **Query Complexity Analysis** - Prevents expensive operations
-- **Multi-level Caching** - Query, field, and comprehensive caching
-- **DataLoaders** - Efficient batch loading to prevent N+1 queries
-- **Smart Prefetching** - Dynamic relationship loading based on GraphQL query
-- **Privacy Controls** - Granular access control for private participants
-- **Regional Filtering** - Geographic location grouping and filtering
-- **User Preferences** - WEB2/WEB3/ALL display preference filtering
-- **Advanced Search** - Full-text search with relevance scoring
-- **Flexible Pagination** - Both traditional and Relay-style cursor pagination
+- **Мониторинг производительности** - Отслеживание производительности запросов в реальном времени
+- **Анализ сложности запросов** - Предотвращение дорогостоящих операций
+- **Многоуровневое кэширование** - Кэширование запросов, полей и комплексное кэширование
+- **DataLoaders** - Эффективная пакетная загрузка для предотвращения N+1 запросов
+- **Умная предзагрузка** - Динамическая загрузка связей на основе GraphQL запроса
+- **Контроль приватности** - Детальный контроль доступа для приватных участников
+- **Региональная фильтрация** - Группировка и фильтрация по географическому местоположению
+- **Пользовательские предпочтения** - Фильтрация по предпочтениям отображения WEB2/WEB3/ALL
+- **Расширенный поиск** - Полнотекстовый поиск с оценкой релевантности
+- **Гибкая пагинация** - Традиционная и Relay-стиль курсорная пагинация
 
 ## Main Query Types
 
-### 1. Signal Cards (`signalCards`)
+### 1. Карточки сигналов (`signalCards`)
 
-**Purpose**: Fetch paginated signal cards with advanced filtering and optimization
+**Назначение**: Получение пагинированных карточек сигналов с расширенной фильтрацией и оптимизацией
 
-**Key Features**:
+**Ключевые возможности**:
 
-- Advanced filtering (categories, participants, stages, locations, etc.)
-- Search with relevance scoring
-- Folder support (`folder_key` parameter)
-- Privacy filtering for private participants
-- User display preferences (WEB2/WEB3/ALL)
-- Intelligent caching based on query complexity
+- Расширенная фильтрация (категории, участники, стадии, местоположения и т.д.)
+- Поиск с оценкой релевантности
+- Поддержка папок (параметр `folder_key`)
+- Фильтрация приватности для приватных участников
+- Пользовательские предпочтения отображения (WEB2/WEB3/ALL)
+- Интеллектуальное кэширование на основе сложности запроса
 
-**Usage Example**:
+**Пример использования**:
 
 ```graphql
 query GetSignalCards {
   signalCards(
     filters: {
-      search: "AI startup"
+      search: "AI стартап"
       categories: ["1", "2"]
       stages: ["seed", "series_a"]
       featured: true
@@ -93,19 +91,19 @@ query GetSignalCards {
 }
 ```
 
-### 2. User Feed (`userFeed`)
+### 2. Лента пользователя (`userFeed`)
 
-**Purpose**: Personalized feed showing all accessible signal cards with user-specific filtering
+**Назначение**: Персонализированная лента, показывающая все доступные карточки сигналов с пользовательской фильтрацией
 
-**Key Features**:
+**Ключевые возможности**:
 
-- Shows ALL accessible content (not just followed participants)
-- Privacy filtering respects user's participant access
-- Personal feed preferences (categories, stages, locations)
-- Option to bypass personal filters (`bypass_personal_filters`)
-- Optimized for bulk loading with comprehensive caching
+- Показывает ВСЕ доступное содержимое (не только отслеживаемых участников)
+- Фильтрация приватности учитывает доступ пользователя к участникам
+- Персональные предпочтения ленты (категории, стадии, местоположения)
+- Опция обхода персональных фильтров (`bypass_personal_filters`)
+- Оптимизировано для массовой загрузки с комплексным кэшированием
 
-**Usage Example**:
+**Пример использования**:
 
 ```graphql
 query GetUserFeed {
@@ -130,19 +128,19 @@ query GetUserFeed {
 }
 ```
 
-### 3. Participants (`participants`)
+### 3. Участники (`participants`)
 
-**Purpose**: Paginated participants with smart search and privacy handling
+**Назначение**: Пагинированные участники с умным поиском и обработкой приватности
 
-**Key Features**:
+**Ключевые возможности**:
 
-- Relay-style cursor pagination
-- Smart search with fund inclusion logic
-- Privacy filtering (public + user's private participants)
-- Type filtering (funds, angels, investors, etc.)
-- Advanced search logic that includes associated funds
+- Relay-стиль курсорная пагинация
+- Умный поиск с логикой включения фондов
+- Фильтрация приватности (публичные + приватные участники пользователя)
+- Фильтрация по типу (фонды, ангелы, инвесторы и т.д.)
+- Расширенная логика поиска, включающая связанные фонды
 
-**Usage Example**:
+**Пример использования**:
 
 ```graphql
 query GetParticipants {
@@ -174,37 +172,52 @@ query GetParticipants {
 }
 ```
 
-### 4. Smart Participant Search (`smartParticipantSearch`)
+### 4. Умный поиск участников (`smartParticipantSearch`)
 
-**Purpose**: Advanced participant search that intelligently includes funds
+**Назначение**: Расширенный поиск участников, который интеллектуально включает фонды
 
-**Key Features**:
+**Ключевые возможности**:
 
-- Searches individuals and automatically includes their associated funds
-- Deduplication to avoid showing same fund multiple times
-- Option to include/exclude individual participants
-- Privacy-aware search results
+- Ищет физических лиц и автоматически включает их связанные фонды
+- Дедупликация для избежания показа одного и того же фонда несколько раз
+- Опция включения/исключения индивидуальных участников
+- Поиск с учетом приватности результатов
 
-### 5. Regional Locations (`regionalLocations`)
+**Пример использования**:
 
-**Purpose**: Geographic filtering with regional groupings
+```graphql
+query SmartSearch {
+  smartParticipantSearch(
+    search: "a16z"
+    include_individuals: true
+  ) {
+    id
+    name
+    type
+    is_private
+  }
+}
+```
 
-**Key Features**:
+### 5. Региональные местоположения (`regionalLocations`)
 
-- Groups countries into regions (North America, Europe, Asia, etc.)
-- Only shows regions/countries that exist in the database
-- Active state tracking for UI components
-- Partial selection support for regions
+**Назначение**: Географическая фильтрация с региональной группировкой
 
-**Usage Example**:
+**Ключевые возможности**:
+
+- Группирует местоположения по регионам (Северная Америка, Европа, Азия и т.д.)
+- Показывает только регионы, существующие в базе данных
+- Отслеживание активного состояния для UI компонентов
+- Поддержка частичного выбора регионов
+
+**Пример использования**:
 
 ```graphql
 query GetRegionalLocations {
-  regionalLocations(active_locations: ["United States", "Canada"]) {
+  regionalLocations(active_locations: ["North America", "Europe"]) {
     regional_mappings {
       name
       slug
-      countries
     }
     filter_options {
       name
@@ -217,18 +230,18 @@ query GetRegionalLocations {
 }
 ```
 
-### 6. Saved Filters (`savedFilters`)
+### 6. Сохраненные фильтры (`savedFilters`)
 
-**Purpose**: User's saved filter configurations
+**Назначение**: Сохраненные конфигурации фильтров пользователя
 
-**Key Features**:
+**Ключевые возможности**:
 
-- Filtered by user's current signal display preference
-- Pagination support
-- Optional recent projects count computation
-- Default filter identification
+- Фильтрация по текущему предпочтению отображения сигналов пользователя
+- Поддержка пагинации
+- Опциональный подсчет количества недавних проектов
+- Идентификация фильтра по умолчанию
 
-**Usage Example**:
+**Пример использования**:
 
 ```graphql
 query GetSavedFilters {
@@ -252,51 +265,111 @@ query GetSavedFilters {
 }
 ```
 
-## Advanced Features
+### 7. Категории (`categories`)
 
-### Performance Optimization
+**Назначение**: Получение списка всех категорий с поддержкой фильтрации
 
-#### Query Complexity Analysis
+**Ключевые возможности**:
 
-- Automatic complexity scoring based on field weights
-- Prevents expensive queries from overwhelming the system
-- Configurable complexity limits and depth restrictions
+- Получение всех категорий или фильтрация по типу
+- Поддержка вложенных категорий (родительские и дочерние)
+- Фильтрация по предпочтениям отображения пользователя
 
-#### Multi-level Caching Strategy
+**Пример использования**:
 
-1. **Query-level caching** - Caches entire query results for expensive operations
-2. **Field-level caching** - Caches individual field computations
-3. **Comprehensive caching** - Advanced caching for complex feed queries
+```graphql
+query GetCategories {
+  categories {
+    id
+    name
+    slug
+    parent {
+      id
+      name
+    }
+    children {
+      id
+      name
+    }
+  }
+}
+```
+
+### 8. Текущий пользователь (`me`)
+
+**Назначение**: Получение информации о текущем аутентифицированном пользователе
+
+**Ключевые возможности**:
+
+- Информация о профиле пользователя
+- Предпочтения отображения сигналов
+- Статистика и настройки
+
+**Пример использования**:
+
+```graphql
+query GetCurrentUser {
+  me {
+    id
+    username
+    email
+    signal_display_preference
+    date_joined
+  }
+}
+```
+
+## Расширенные возможности
+
+### Оптимизация производительности
+
+#### Анализ сложности запросов
+
+- Автоматическая оценка сложности на основе весов полей
+- Предотвращение перегрузки системы дорогостоящими запросами
+- Настраиваемые ограничения сложности и ограничения глубины
+
+#### Многоуровневая стратегия кэширования
+
+1. **Кэширование на уровне запросов** - Кэширует полные результаты запросов для дорогостоящих операций
+2. **Кэширование на уровне полей** - Кэширует вычисления отдельных полей
+3. **Комплексное кэширование** - Расширенное кэширование для сложных запросов ленты
 
 #### DataLoaders
 
-- Batch loading for participants, categories, and signals
-- Prevents N+1 query problems
-- Automatic batching and deduplication
+- Пакетная загрузка для участников, категорий и сигналов
+- Предотвращение проблем N+1 запросов
+- Автоматическая пакетизация и дедупликация
 
-#### Enhanced Prefetching
+#### Расширенная предзагрузка
 
-- Dynamically determines relationships to prefetch based on GraphQL query
-- Reduces database round trips
-- Optimizes select_related and prefetch_related usage
+- Динамически определяет связи для предзагрузки на основе GraphQL запроса
+- Уменьшает количество обращений к базе данных
+- Оптимизирует использование select_related и prefetch_related
 
-### Privacy & Security
+#### Массовая загрузка
 
-#### Privacy Filtering
+- Эффективная загрузка больших наборов данных
+- Минимизация количества запросов к БД
+- Оптимизация для работы с большими объемами данных
 
-- **Public participants**: Visible to all users
-- **Private participants**: Only visible to users who created/requested them
-- Consistent privacy logic across all queries
+### Приватность и безопасность
 
-#### User Display Preferences
+#### Фильтрация приватности
 
-- **ALL**: Shows all signal cards
-- **WEB2**: Excludes web3 categories and subcategories
-- **WEB3**: Shows only web3 categories and subcategories
+- **Публичные участники**: Видны всем пользователям
+- **Приватные участники**: Видны только пользователям, которые их создали/запросили
+- Единая логика приватности во всех запросах
 
-### Filtering System
+#### Пользовательские предпочтения отображения
 
-#### Advanced Participant Filtering
+- **ALL**: Показывает все карточки сигналов
+- **WEB2**: Исключает web3 категории и подкатегории
+- **WEB3**: Показывает только web3 категории и подкатегории
+
+### Система фильтрации
+
+#### Расширенная фильтрация участников
 
 ```graphql
 input ParticipantFilter {
@@ -306,57 +379,228 @@ input ParticipantFilter {
 }
 ```
 
-#### Date Filtering
+**Режимы фильтрации**:
+- `INCLUDE_ONLY` - Включить только указанных участников
+- `EXCLUDE_FROM_TYPE` - Исключить участников определенных типов
 
-- Flexible date input supporting multiple formats (DD.MM.YYYY, YYYY-MM-DD, etc.)
-- Custom FlexibleDate scalar for consistent date handling
+#### Фильтрация по датам
 
-#### Search Features
+- Гибкий ввод дат с поддержкой множества форматов (DD.MM.YYYY, YYYY-MM-DD и т.д.)
+- Пользовательский скаляр FlexibleDate для единообразной обработки дат
+- Поддержка диапазонов дат для фильтрации сигналов
 
-- Full-text search across multiple fields
-- Relevance scoring for search results
-- Search result ordering by relevance + secondary criteria
+#### Возможности поиска
 
-## Mutation Operations
+- Полнотекстовый поиск по множеству полей
+- Оценка релевантности для результатов поиска
+- Упорядочивание результатов поиска по релевантности + вторичным критериям
 
-### Card Management
+#### Фильтрация по стадиям
 
-- `saveCardToFolder` - Save cards to user folders
-- `removeCardFromFolder` - Remove cards from folders
-- `deleteCard` - Soft delete cards (adds to deleted list)
-- `restoreCard` - Restore deleted cards
+- Фильтрация по стадиям финансирования (seed, series_a, series_b и т.д.)
+- Поддержка множественного выбора стадий
+- Комбинирование с другими фильтрами
 
-### Note Management
+#### Фильтрация по местоположению
 
-- `addNoteToCard` - Add notes to signal cards
-- `updateCardNote` - Update existing notes
-- `removeNoteFromCard` - Remove notes
+- Фильтрация по регионам
+- Поддержка множественного выбора местоположений
+- Региональная группировка для удобства
 
-### Filter Management
+## Операции мутаций
 
-- `saveCurrentFilters` - Save current filter state
-- `clearFilters` - Clear all active filters
-- `updateFilter` - Update specific filter values
-- `createSavedFilter` - Create new saved filter
-- `updateSavedFilter` - Update existing saved filter
-- `deleteSavedFilter` - Delete saved filter
+### Управление карточками
 
-### Folder Management
+#### `saveCardToFolder`
 
-- `createUserFolder` - Create new user folders
-- `updateUserFolder` - Update folder properties
-- `deleteUserFolder` - Delete folders
-- `setDefaultFolder` - Set default folder for user
+Сохраняет карточки в папки пользователя.
 
-## Usage Examples
+**Параметры**:
+- `card_id` (ID!) - ID карточки для сохранения
+- `folder_key` (String) - Ключ папки (опционально)
 
-### Complex Query with Multiple Features
+**Пример**:
+
+```graphql
+mutation SaveCard {
+  saveCardToFolder(card_id: "123", folder_key: "favorites") {
+    success
+    message
+  }
+}
+```
+
+#### `removeCardFromFolder`
+
+Удаляет карточки из папок.
+
+**Параметры**:
+- `card_id` (ID!) - ID карточки для удаления
+- `folder_key` (String) - Ключ папки (опционально)
+
+#### `deleteCard`
+
+Мягкое удаление карточек (добавляет в список удаленных).
+
+**Параметры**:
+- `card_id` (ID!) - ID карточки для удаления
+
+#### `restoreCard`
+
+Восстанавливает удаленные карточки.
+
+**Параметры**:
+- `card_id` (ID!) - ID карточки для восстановления
+
+### Управление заметками
+
+#### `addNoteToCard`
+
+Добавляет заметки к карточкам сигналов.
+
+**Параметры**:
+- `card_id` (ID!) - ID карточки
+- `note_text` (String!) - Текст заметки
+
+**Пример**:
+
+```graphql
+mutation AddNote {
+  addNoteToCard(card_id: "123", note_text: "Интересный проект") {
+    success
+    message
+    note {
+      id
+      text
+      created_at
+    }
+  }
+}
+```
+
+#### `updateCardNote`
+
+Обновляет существующие заметки.
+
+**Параметры**:
+- `note_id` (ID!) - ID заметки
+- `note_text` (String!) - Новый текст заметки
+
+#### `removeNoteFromCard`
+
+Удаляет заметки.
+
+**Параметры**:
+- `note_id` (ID!) - ID заметки для удаления
+
+### Управление фильтрами
+
+#### `saveCurrentFilters`
+
+Сохраняет текущее состояние фильтров.
+
+**Параметры**:
+- `name` (String!) - Имя сохраненного фильтра
+- `is_default` (Boolean) - Установить как фильтр по умолчанию
+- `filters` (FilterInput!) - Объект с параметрами фильтров
+
+#### `clearFilters`
+
+Очищает все активные фильтры.
+
+#### `updateFilter`
+
+Обновляет конкретные значения фильтров.
+
+#### `createSavedFilter`
+
+Создает новый сохраненный фильтр.
+
+**Параметры**:
+- `name` (String!) - Имя фильтра
+- `filters` (FilterInput!) - Параметры фильтров
+- `is_default` (Boolean) - Установить как фильтр по умолчанию
+
+#### `updateSavedFilter`
+
+Обновляет существующий сохраненный фильтр.
+
+**Параметры**:
+- `filter_id` (ID!) - ID фильтра
+- `name` (String) - Новое имя (опционально)
+- `filters` (FilterInput) - Новые параметры (опционально)
+- `is_default` (Boolean) - Установить как фильтр по умолчанию (опционально)
+
+#### `deleteSavedFilter`
+
+Удаляет сохраненный фильтр.
+
+**Параметры**:
+- `filter_id` (ID!) - ID фильтра для удаления
+
+### Управление папками
+
+#### `createUserFolder`
+
+Создает новые папки пользователя.
+
+**Параметры**:
+- `name` (String!) - Имя папки
+- `key` (String!) - Уникальный ключ папки
+- `description` (String) - Описание папки (опционально)
+
+**Пример**:
+
+```graphql
+mutation CreateFolder {
+  createUserFolder(
+    name: "Избранное"
+    key: "favorites"
+    description: "Мои любимые проекты"
+  ) {
+    success
+    message
+    folder {
+      id
+      name
+      key
+    }
+  }
+}
+```
+
+#### `updateUserFolder`
+
+Обновляет свойства папки.
+
+**Параметры**:
+- `folder_id` (ID!) - ID папки
+- `name` (String) - Новое имя (опционально)
+- `description` (String) - Новое описание (опционально)
+
+#### `deleteUserFolder`
+
+Удаляет папки.
+
+**Параметры**:
+- `folder_id` (ID!) - ID папки для удаления
+
+#### `setDefaultFolder`
+
+Устанавливает папку по умолчанию для пользователя.
+
+**Параметры**:
+- `folder_key` (String!) - Ключ папки
+
+## Примеры использования
+
+### Сложный запрос с множеством возможностей
 
 ```graphql
 query ComplexSignalCardsQuery {
   signalCards(
     filters: {
-      search: "AI fintech startup"
+      search: "AI fintech стартап"
       categories: ["1", "5", "8"]
       participant_filter: {
         mode: EXCLUDE_FROM_TYPE
@@ -419,7 +663,7 @@ query ComplexSignalCardsQuery {
 }
 ```
 
-### Comprehensive User Context Query
+### Комплексный запрос пользовательского контекста
 
 ```graphql
 query UserDashboard {
@@ -464,94 +708,264 @@ query UserDashboard {
 }
 ```
 
-## Performance Considerations
+### Пример работы с мутациями
 
-### Query Complexity Limits
+```graphql
+mutation ManageCard {
+  # Сохранение карточки в папку
+  saveCard: saveCardToFolder(
+    card_id: "123"
+    folder_key: "favorites"
+  ) {
+    success
+    message
+  }
 
-- Default max complexity: 1000
-- Default max depth: 15
-- Introspection complexity: 100
+  # Добавление заметки
+  addNote: addNoteToCard(
+    card_id: "123"
+    note_text: "Очень интересный проект в области AI"
+  ) {
+    success
+    note {
+      id
+      text
+    }
+  }
 
-### Caching TTL Values
+  # Создание сохраненного фильтра
+  createFilter: createSavedFilter(
+    name: "AI проекты"
+    is_default: false
+    filters: {
+      categories: ["1", "5"]
+      stages: ["seed", "series_a"]
+    }
+  ) {
+    success
+    filter {
+      id
+      name
+    }
+  }
+}
+```
 
-- Lightweight queries: No caching (computed directly)
-- Moderate queries: 5 minutes
-- Heavy queries: 15 minutes
-- Comprehensive queries: 30 minutes
+## Соображения по производительности
 
-### Best Practices
+### Ограничения сложности запросов
 
-1. **Use include_signals sparingly** - Only when you need signal data
-2. **Limit pagination size** - Max 100 items per page
-3. **Prefer specific filters** - More specific filters enable better caching
-4. **Use cursor pagination** - For large result sets
-5. **Monitor query complexity** - Check for complexity warnings in responses
+- Максимальная сложность по умолчанию: 1000
+- Максимальная глубина по умолчанию: 15
+- Сложность интроспекции: 100
 
-## Error Handling
+### Значения TTL кэширования
 
-### Common Error Types
+- Легкие запросы: Без кэширования (вычисляются напрямую)
+- Умеренные запросы: 5 минут
+- Тяжелые запросы: 15 минут
+- Комплексные запросы: 30 минут
 
-- `QueryComplexityError` - Query exceeds complexity limits
-- `AuthenticationError` - User not authenticated for protected operations
-- `ValidationError` - Invalid input parameters
-- `PrivacyError` - Attempted access to private resources
+### Рекомендации по использованию
 
-### Error Response Format
+1. **Используйте include_signals экономно** - Только когда вам нужны данные сигналов
+2. **Ограничивайте размер пагинации** - Максимум 100 элементов на страницу
+3. **Предпочитайте конкретные фильтры** - Более конкретные фильтры обеспечивают лучшее кэширование
+4. **Используйте курсорную пагинацию** - Для больших наборов результатов
+5. **Мониторьте сложность запросов** - Проверяйте предупреждения о сложности в ответах
+6. **Используйте DataLoaders** - Автоматически предотвращают N+1 проблемы
+7. **Оптимизируйте поля запросов** - Запрашивайте только необходимые поля
+
+### Метрики производительности
+
+Система отслеживает следующие метрики:
+
+- Время выполнения запросов
+- Количество запросов к базе данных
+- Коэффициент попаданий в кэш
+- Использование памяти
+- Сложность запросов
+
+## Обработка ошибок
+
+### Типы ошибок
+
+#### `QueryComplexityError`
+
+Запрос превышает ограничения сложности.
 
 ```json
 {
+  "errors": [{
+    "message": "Сложность запроса (1200) превышает максимально допустимую (1000)",
+    "extensions": {
+      "code": "QUERY_COMPLEXITY_ERROR",
+      "complexity": 1200,
+      "max_allowed": 1000
+    }
+  }]
+}
+```
+
+#### `AuthenticationError`
+
+Пользователь не аутентифицирован для защищенных операций.
+
+```json
+{
+  "errors": [{
+    "message": "Требуется аутентификация",
+    "extensions": {
+      "code": "AUTHENTICATION_ERROR"
+    }
+  }]
+}
+```
+
+#### `ValidationError`
+
+Недопустимые входные параметры.
+
+```json
+{
+  "errors": [{
+    "message": "Недопустимое значение для поля 'page_size'",
+    "extensions": {
+      "code": "VALIDATION_ERROR",
+      "field": "page_size"
+    }
+  }]
+}
+```
+
+#### `PrivacyError`
+
+Попытка доступа к приватным ресурсам.
+
+```json
+{
+  "errors": [{
+    "message": "Доступ к приватному участнику запрещен",
+    "extensions": {
+      "code": "PRIVACY_ERROR"
+    }
+  }]
+}
+```
+
+#### `NotFoundError`
+
+Запрашиваемый ресурс не найден.
+
+```json
+{
+  "errors": [{
+    "message": "Карточка с ID '123' не найдена",
+    "extensions": {
+      "code": "NOT_FOUND_ERROR"
+    }
+  }]
+}
+```
+
+### Формат ответа с ошибками
+
+Все ошибки возвращаются в стандартном формате GraphQL:
+
+```json
+{
+  "data": null,
   "errors": [
     {
-      "message": "Query complexity (1200) exceeds maximum allowed (1000)",
+      "message": "Описание ошибки",
       "extensions": {
-        "code": "QUERY_COMPLEXITY_ERROR",
-        "complexity": 1200,
-        "max_allowed": 1000
-      }
+        "code": "ERROR_CODE",
+        "additional_info": "Дополнительная информация"
+      },
+      "path": ["fieldName", 0, "nestedField"]
     }
   ]
 }
 ```
 
-## Configuration
+## Конфигурация
 
-### Environment Variables
+### Переменные окружения
 
 ```python
-# GraphQL Configuration
-GRAPHQL_MAX_COMPLEXITY = 1000
-GRAPHQL_MAX_DEPTH = 15
-GRAPHQL_INTROSPECTION_COMPLEXITY = 100
+# GraphQL Конфигурация
+GRAPHQL_MAX_COMPLEXITY = 1000          # Максимальная сложность запроса
+GRAPHQL_MAX_DEPTH = 15                 # Максимальная глубина вложенности
+GRAPHQL_INTROSPECTION_COMPLEXITY = 100  # Сложность для интроспекции
 
-# Caching Configuration
-GRAPHQL_CACHE_TTL_MODERATE = 300  # 5 minutes
-GRAPHQL_CACHE_TTL_HEAVY = 900     # 15 minutes
-GRAPHQL_CACHE_TTL_COMPREHENSIVE = 1800  # 30 minutes
+# Конфигурация кэширования
+GRAPHQL_CACHE_TTL_MODERATE = 300       # 5 минут для умеренных запросов
+GRAPHQL_CACHE_TTL_HEAVY = 900          # 15 минут для тяжелых запросов
+GRAPHQL_CACHE_TTL_COMPREHENSIVE = 1800 # 30 минут для комплексных запросов
 
-# Performance Monitoring
-GRAPHQL_ENABLE_PERFORMANCE_MONITORING = True
-GRAPHQL_LOG_SLOW_QUERIES = True
-GRAPHQL_SLOW_QUERY_THRESHOLD = 1000  # milliseconds
+# Мониторинг производительности
+GRAPHQL_ENABLE_PERFORMANCE_MONITORING = True  # Включить мониторинг
+GRAPHQL_LOG_SLOW_QUERIES = True               # Логировать медленные запросы
+GRAPHQL_SLOW_QUERY_THRESHOLD = 1000           # Порог медленного запроса (мс)
 ```
 
-## Testing
+### Настройка кэширования
+
+Кэширование можно настроить через Django settings:
+
+```python
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',
+    }
+}
+```
+
+### Настройка DataLoaders
+
+DataLoaders автоматически используются для:
+- Загрузки участников
+- Загрузки категорий
+- Загрузки сигналов
+- Загрузки связей между сущностями
+
+## Тестирование
 
 ### GraphQL Playground
 
-Access the GraphQL playground at `/graphql/` for interactive query testing and schema exploration.
+Доступ к GraphQL playground находится по адресу `/graphql/` для интерактивного тестирования запросов и исследования схемы.
 
-### Performance Testing
+**Возможности Playground**:
+- Интерактивное выполнение запросов
+- Автодополнение полей и типов
+- Просмотр документации схемы
+- История запросов
+- Переменные запросов
 
-Use the `@monitor_query_performance` decorator on resolvers to track:
+### Тестирование производительности
 
-- Execution time
-- Database queries count
-- Cache hit/miss ratios
-- Memory usage
+Используйте декоратор `@monitor_query_performance` на резолверах для отслеживания:
 
-### Complexity Testing
+- Время выполнения
+- Количество запросов к БД
+- Коэффициент попаданий/промахов кэша
+- Использование памяти
 
-Test query complexity with introspection:
+**Пример использования**:
+
+```python
+from graphql_app.performance import monitor_query_performance
+
+@monitor_query_performance
+def resolve_signal_cards(self, info, ...):
+    # Ваш код резолвера
+    pass
+```
+
+### Тестирование сложности
+
+Проверьте сложность запроса с помощью интроспекции:
 
 ```graphql
 query IntrospectComplexity {
@@ -568,4 +982,115 @@ query IntrospectComplexity {
 }
 ```
 
-This documentation covers the comprehensive GraphQL API built for the Veck platform, showcasing advanced features for performance, security, and user experience optimization.
+### Интеграционное тестирование
+
+Пример теста для проверки запроса:
+
+```python
+from django.test import TestCase
+from graphql_app.schema import schema
+
+class SignalCardsTestCase(TestCase):
+    def test_signal_cards_query(self):
+        query = """
+        query {
+          signalCards(pagination: { page: 1, page_size: 10 }) {
+            nodes {
+              id
+              name
+            }
+            total_count
+          }
+        }
+        """
+        result = schema.execute_sync(query)
+        self.assertIsNone(result.errors)
+        self.assertIsNotNone(result.data)
+```
+
+## Структура данных
+
+### Основные типы
+
+#### SignalCard
+
+```graphql
+type SignalCard {
+  id: ID!
+  name: String!
+  slug: String!
+  description: String
+  stage: String
+  round_status: String
+  location: String
+  featured: Boolean!
+  latest_signal_date: DateTime
+  signals: [Signal!]!
+  categories: [Category!]!
+  is_saved: Boolean!
+  is_noted: Boolean!
+  note_text: String
+}
+```
+
+#### Participant
+
+```graphql
+type Participant {
+  id: ID!
+  name: String!
+  type: String!
+  is_private: Boolean!
+  associated_with: [Participant!]!
+}
+```
+
+#### Signal
+
+```graphql
+type Signal {
+  id: ID!
+  description: String!
+  created_at: DateTime!
+  participant: Participant!
+  associated_participant: Participant
+}
+```
+
+#### Category
+
+```graphql
+type Category {
+  id: ID!
+  name: String!
+  slug: String!
+  parent: Category
+  children: [Category!]!
+}
+```
+
+## Миграция и обновления
+
+### Обновление схемы
+
+При изменении схемы GraphQL:
+
+1. Обновите типы в `types.py`
+2. Обновите резолверы в `queries.py` или `mutations.py`
+3. Обновите документацию
+4. Протестируйте изменения
+5. Очистите кэш при необходимости
+
+### Обратная совместимость
+
+- Новые поля добавляются как опциональные
+- Устаревшие поля помечаются как `@deprecated`
+- Изменения в типах ввода требуют версионирования
+
+## Поддержка и контакты
+
+Для вопросов и поддержки обращайтесь к команде разработки или создайте issue в репозитории проекта.
+
+---
+
+Эта документация охватывает комплексный GraphQL API, построенный для платформы мониторинга венчурного капитала, демонстрируя расширенные возможности для оптимизации производительности, безопасности и пользовательского опыта.

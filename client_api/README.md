@@ -1,6 +1,6 @@
-# Документация Сlient API
+# Документация Client API
 
-Сlient API — RESTful интерфейс, предназначенный для интеграции в системы мониторинга венчурного капитала. Доступ к данным об инвесторах, проектах, ключевых лицах и рыночных сигналах из венчурной экосистемы.
+Client API — RESTful интерфейс, предназначенный для интеграции в системы мониторинга венчурного капитала. Обеспечивает доступ к данным об инвесторах, проектах, ключевых лицах и рыночных сигналах из венчурной экосистемы.
 
 **Базовый URL:** `http://localhost:8000/client_api/`
 
@@ -78,11 +78,11 @@ Authorization: Token <your_token>
       "id": 1,
       "slug": "project-slug",
       "name": "Project Name",
-      "public_url": "https://app.theveck.com/public/project-slug",
+      "public_url": "https://app.example.com/public/project-slug",
       "interactions_count": 15,
       "trending": true,
       "description": "Project description",
-      "image": "https://app.theveck.com/media/...",
+      "image": "https://app.example.com/media/...",
       "url": "https://example.com",
       "stage": {
         "name": "Seed",
@@ -240,11 +240,11 @@ Authorization: Token <your_token>
     "id": 1,
     "slug": "project-slug",
     "name": "Project Name",
-    "public_url": "https://app.theveck.com/public/project-slug",
+    "public_url": "https://app.example.com/public/project-slug",
     "interactions_count": 15,
     "trending": true,
     "description": "Detailed project description",
-    "image": "https://app.theveck.com/media/...",
+    "image": "https://app.example.com/media/...",
     "url": "https://example.com",
     "stage": {
       "name": "Seed",
@@ -319,7 +319,7 @@ Authorization: Token <your_token>
 #### Параметры
 
 - `limit` (integer) — количество записей (максимум 200, по умолчанию 50)
-- `offset` (integer) — смещение от начала списка
+- `offset` (integer) — смещение от начала списка (по умолчанию 0)
 
 #### Пример запроса
 
@@ -363,11 +363,15 @@ Authorization: Token <your_token>
 
 Все справочные значения (стадии, раунды, категории, типы участников, папки, фильтры) должны быть получены через мета-эндпоинты, перечисленные ниже. Эти эндпоинты предоставляют полный список доступных значений и их slugs/ID для фильтрации и отображения.
 
+**Важно:** Все справочные эндпоинты требуют аутентификации через токен в заголовке `Authorization`.
+
 #### Категории
 
 **GET** `/v1/cards/categories/` {#категории}
 
 Получить иерархическую структуру категорий (родительские и дочерние категории).
+
+**Требуется аутентификация:** Да
 
 **Пример ответа:**
 
@@ -408,6 +412,8 @@ Authorization: Token <your_token>
 
 Получить список стадий развития проектов (seed, series_a, series_b и т.д.).
 
+**Требуется аутентификация:** Да
+
 **Пример ответа:**
 
 ```json
@@ -432,6 +438,8 @@ Authorization: Token <your_token>
 #### Раунды
 
 **GET** `/v1/cards/rounds/` {#раунды}
+
+**Требуется аутентификация:** Да
 
 Получить список раундов финансирования (raising_now, just_raised, about_to_raise и т.д.).
 
@@ -458,6 +466,8 @@ Authorization: Token <your_token>
 
 #### Папки пользователя
 
+**Требуется аутентификация:** Да
+
 **GET** `/v1/cards/folders/` {#папки-пользователя}
 
 Получить список папок пользователя с количеством карточек в каждой.
@@ -482,6 +492,8 @@ Authorization: Token <your_token>
   ]
 }
 ```
+
+**Требуется аутентификация:** Да
 
 #### Сохраненные фильтры
 
@@ -519,7 +531,7 @@ Authorization: Token <your_token>
 #### Основные параметры
 
 - `limit` (integer) — количество записей на странице (максимум 200, по умолчанию 50)
-- `offset` (integer) — смещение от начала списка
+- `offset` (integer) — смещение от начала списка (по умолчанию 0)
 - `search` (string) — поиск по имени и описанию
 - `sort` (string) — сортировка: предустановленные значения или пользовательский формат
   - **Предустановленные значения:**
@@ -555,7 +567,7 @@ Authorization: Token <your_token>
       "name": "Investor Fund",
       "alt_name": "VC",
       "email": "contact@investorfund.com",
-      "image": "https://app.theveck.com/media/participants/investor-fund/image.jpg",
+      "image": "https://app.example.com/media/participants/investor-fund/image.jpg",
       "type": "fund",
       "about": "Leading venture capital fund focused on B2B SaaS companies",
       "monthly_signals": 15,
@@ -606,7 +618,7 @@ Authorization: Token <your_token>
     "name": "Investor Fund",
     "alt_name": "VC",
     "email": "contact@investorfund.com",
-    "image": "https://app.theveck.com/media/participants/investor-fund/image.jpg",
+    "image": "https://app.example.com/media/participants/investor-fund/image.jpg",
     "type": "fund",
     "about": "Leading venture capital fund focused on B2B SaaS companies",
     "monthly_signals": 15,
@@ -661,7 +673,7 @@ Authorization: Token <your_token>
       "name": "Investor Fund",
       "alt_name": "VC",
       "email": "contact@investorfund.com",
-      "image": "https://app.theveck.com/media/participants/investor-fund/image.jpg",
+      "image": "https://app.example.com/media/participants/investor-fund/image.jpg",
       "type": "fund",
       "about": "Leading venture capital fund focused on B2B SaaS companies",
       "monthly_signals": 15,
@@ -677,7 +689,7 @@ Authorization: Token <your_token>
       "name": "John Doe",
       "alt_name": null,
       "email": "john@example.com",
-      "image": "https://app.theveck.com/media/participants/john-doe/image.jpg",
+      "image": "https://app.example.com/media/participants/john-doe/image.jpg",
       "type": "investor",
       "about": "Angel investor and advisor",
       "monthly_signals": 8,
@@ -690,6 +702,8 @@ Authorization: Token <your_token>
   "found": 2
 }
 ```
+
+**Требуется аутентификация:** Да
 
 ---
 
@@ -726,7 +740,10 @@ Authorization: Token <your_token>
     }
   ]
 }
+
+**Требуется аутентификация:** Да (токен проверяется в процессе запроса)
 ```
+
 
 ---
 
@@ -737,6 +754,8 @@ Authorization: Token <your_token>
 **GET** `/v1/token/validate/`
 
 Проверить токен аутентификации.
+
+**Требуется аутентификация:** Да (токен проверяется в процессе запроса)
 
 #### Пример запроса
 
@@ -771,7 +790,7 @@ Authorization: Token <your_token>
 - **`id`** (integer, обязательно) — Уникальный идентификатор карточки
 - **`slug`** (string, обязательно) — URL-дружественный идентификатор, используемый в запросах API (например, `thinkymachines`)
 - **`name`** (string, обязательно) — Название проекта/компании или имя человека
-- **`public_url`** (string, обязательно) — Публичный URL для просмотра карточки на платформе (например, `https://app.theveck.com/public/thinkymachines`)
+- **`public_url`** (string, обязательно) — Публичный URL для просмотра карточки на платформе (например, `https://app.example.com/public/thinkymachines`)
 - **`description`** (string|null) — Подробное описание проекта
 - **`image`** (string|null) — Абсолютный URL изображения/логотипа проекта
 - **`url`** (string|null) — URL веб-сайта проекта или аккаунта человека
@@ -933,6 +952,35 @@ Authorization: Token <your_token>
 
 #### Примеры ответов с ошибками
 
+**Недействительный токен (401 Unauthorized):**
+```json
+{
+  "error": "authentication_failed",
+  "message": "Invalid token or token not provided",
+  "details": {}
+}
+```
+
+**Ресурс не найден (404 Not Found):**
+```json
+{
+  "error": "not_found",
+  "message": "Resource not found",
+  "details": {}
+}
+```
+
+**Ошибка валидации данных (400 Bad Request):**
+```json
+{
+  "error": "validation_error",
+  "message": "Invalid request parameters",
+  "details": {
+    "limit": ["Ensure this value is less than or equal to 100."]
+  }
+}
+```
+
 **Превышен лимит запросов (429) - Платный доступ:**
 ```json
 {
@@ -982,3 +1030,106 @@ Authorization: Token <your_token>
 
 **Исключение:** Поле `last_round` в ответах использует формат `YYYY-MM-DD` (только дата, например, `2025-01-15`)
 
+---
+
+## Ограничения и лимиты
+
+### Лимиты запросов
+
+API использует систему ограничения частоты запросов (rate limiting):
+
+- **Бесплатный доступ:** 100 запросов всего (общий лимит)
+- **Платный доступ:** 500 запросов в день (дневной лимит)
+
+При превышении лимита возвращается ошибка `429 Too Many Requests` с информацией о времени ожидания (для платного доступа).
+
+### Лимиты параметров
+
+- **`limit`** для списка карточек: максимум 100 записей на страницу
+- **`limit`** для списка взаимодействий: максимум 200 записей на страницу
+- **`limit`** для списка участников: максимум 200 записей на страницу
+- **`slugs`** для пакетного получения участников: максимум 100 slugs
+
+### Версионирование
+
+Текущая версия API: **v1**
+
+Все эндпоинты находятся под префиксом `/v1/`. При изменении API будет выпущена новая версия с сохранением обратной совместимости для существующих версий.
+
+---
+
+## Примеры использования
+
+### Получение списка популярных карточек
+
+```http
+GET /v1/cards/?limit=20&sort=trending&categories=ai,saas
+Authorization: Token <your_token>
+```
+
+### Поиск участников по типу
+
+```http
+GET /v1/participants/?type=fund&sort=most_active&limit=50
+Authorization: Token <your_token>
+```
+
+### Получение детальной информации о карточке с пользовательскими данными
+
+```http
+GET /v1/cards/project-slug/?include_user_data=true
+Authorization: Token <your_token>
+```
+
+### Пакетное получение участников
+
+```http
+GET /v1/participants/batch/?slugs=investor-fund,john-doe,another-fund
+Authorization: Token <your_token>
+```
+
+### Использование POST для больших фильтров
+
+```http
+POST /v1/cards/
+Content-Type: application/json
+Authorization: Token <your_token>
+
+{
+  "limit": 50,
+  "sort": "trending",
+  "categories": ["ai", "saas", "b2b", "fintech"],
+  "stages": ["seed", "series_a"],
+  "created_after": "2024-01-01"
+}
+```
+
+---
+
+## Часто задаваемые вопросы
+
+### Как получить токен доступа?
+
+Токен доступа выдается администратором системы. Для получения токена обратитесь к администратору платформы.
+
+### Можно ли использовать API без аутентификации?
+
+Нет, все эндпоинты требуют аутентификации через токен в заголовке `Authorization`.
+
+### Как работает фильтрация по категориям?
+
+При указании родительской категории автоматически включаются все дочерние категории. Например, при фильтрации по категории `ai` будут возвращены карточки с категориями `ai`, `machine_learning`, `computer_vision` и другими дочерними категориями.
+
+### В чем разница между `latest_signal_date` и `last_interaction_at`?
+
+`latest_signal_date` — это внутреннее поле, используемое для сортировки. `last_interaction_at` — это поле в ответе API, которое содержит дату последнего взаимодействия в формате ISO 8601 UTC.
+
+### Как работает сортировка `trending`?
+
+Сортировка `trending` возвращает карточки с наибольшим количеством взаимодействий, которые также имеют недавние сигналы (в пределах последней недели). Карточки сортируются сначала по количеству взаимодействий (по убыванию), затем по дате последнего сигнала (по убыванию).
+
+---
+
+## Поддержка
+
+При возникновении проблем или вопросов обратитесь к администратору API или в службу поддержки платформы.
